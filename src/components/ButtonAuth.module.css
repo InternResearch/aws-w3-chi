@@ -1,0 +1,18 @@
+.button {
+    border-radius: 25px;
+    background-color: white;
+    width: max-content;
+    padding: 10px 22px 10px 22px;
+    font-size: 16px;
+    border: 2px solid #3A9691;
+    color: #3A9691;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-top: 10px;
+    cursor: pointer;
+    margin-left: 350px;
+
+}
+.save {
+    background-color: #3A9691 !important;
+    color: white !important;
+}

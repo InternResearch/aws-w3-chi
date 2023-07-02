@@ -1,19 +1,41 @@
 
-import UploadImage from "./components/UploadImage";
+import { RouterProvider, createBrowserRouter, Navigate } from "react-router-dom";
+import Login, { action as LoginAction } from "./pages/Login";
+import Signup, { action as SignupAction } from "./pages/Signup";
+import {action as LogoutAction} from "./pages/Logout"
+import Home from "./pages/Home";
+import Root from "./pages/Root";
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Root></Root>,
+    id: "root",
+    children: [
+      { index: true, element:  <Navigate to="/signup" replace /> },
+      {
+        path: "login",
+        element: <Login></Login>,
+         action: LoginAction
+      },
+      {
+        path: "home",
+        element: <Home></Home>,
+      },
+      {
+        path: "signup",
+        element: <Signup></Signup>,
+        action: SignupAction
+      },
+      {
+        path: "logout",
+        action: LogoutAction,
+      },
+    ]
+  }
+])
 function App() {
-  
-  return (
-    // <div className="App">
-    // <input type="file" id="img" name="img" accept="image/*" onChange={handleChange}></input>
-    // {imageUrl && <div className="result">
-    //     <a href={imageUrl} className="image-url" target="_blankד">Uploaded Image</a>
-    // </div>}
-    // </div>
-   
-    <div className="App">
-      <UploadImage></UploadImage>
-    </div>
+      return (<RouterProvider router={router}></RouterProvider>
   );
 }
 

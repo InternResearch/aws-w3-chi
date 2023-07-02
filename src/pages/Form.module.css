@@ -1,0 +1,13 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+.card-container {
+    width: 500px;
+}
+.link {
+    margin-left: 390px;
+    margin-top: 10px;
+}
