@@ -12,14 +12,17 @@ function UploadImage() {
   const [imageUrl, setImageUrl] = useState(null);
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch()
-  console.log("UploadImage")
+ 
   const uploadImage = async (file) => {
     const options = { headers: { 'Content-Type': file.type } };
    
 
     try {
+      const token = localStorage.getItem("token");
         const s3Urls = await axios.get(
-            `http://localhost:4000/files?username=${user.username}&contentType=${file.type}`
+            `http://localhost:4000/files?contentType=${file.type}`,{
+              headers: { Authorization: `Bearer ${token}` }
+            }
         ).then(response => response.data?.urls);
 
         if (!s3Urls.signedUrl) {
@@ -37,11 +40,15 @@ function UploadImage() {
 
   const savePathImage = async (publicUrl) => { 
     try {
+      const token = localStorage.getItem("token");
       const response = await axios.post(
-        `http://localhost:4000/upload?username=${user.username}`,
+        `http://localhost:4000/upload`,
         {
           image: publicUrl,
-        }
+        },
+        {
+          headers: { Authorization: `Bearer ${token}` }
+        },
       );
       
     }

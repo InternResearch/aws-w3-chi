@@ -8,15 +8,17 @@ function Home() {
     console.log("Home");
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user);
-    const username = localStorage.getItem("username");
+    
     
     // const image = localStorage.getItem("image");
     // console.log(image)
 
-    const savePathImage = useCallback(async (username) => { 
+    const getPathImage = useCallback(async (token) => { 
       try {
         const response = await axios.get(
-          `http://localhost:4000/image?username=${username}`);
+          `http://localhost:4000/image`,  {
+            headers: { Authorization: `Bearer ${token}` }
+          });
         const user = await response.data.data;
         dispatch(userAction.updateUsername(user.username));
         dispatch(userAction.updateImage(user.image));
@@ -27,13 +29,14 @@ function Home() {
     },[dispatch])
 
     useEffect(() => {
+      const username = localStorage.getItem("username");
       dispatch(userAction.updateUsername(username));
       if(user.username)
       {
-        savePathImage(user.username);
+        const token = localStorage.getItem("token");
+        getPathImage(token);
       }
-      
-    }, [dispatch,savePathImage,username,user.username])
+    }, [dispatch,getPathImage,user.username])
 
     // useEffect(() => {
     //   console.log(username, image);

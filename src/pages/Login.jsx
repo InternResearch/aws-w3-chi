@@ -49,6 +49,7 @@ export const action = async ({ request }) => {
     console.log(user);
     localStorage.setItem("username", user.username);
     localStorage.setItem("image", user.image);
+    localStorage.setItem("token", user.token);
 
     return redirect("/home");
   };
